@@ -12,5 +12,187 @@ a {
 }
 
 * {
-  box-sizing: border-box;
+  font-family: "Proxima Nova Regular", sans-serif;
+}
+h1,
+h2,
+h3 {
+  font-family: "Korolev Compressed Bold", sans-serif;
+  text-transform: uppercase;
+}
+.h1,
+.h2,
+.h3,
+h1,
+h2,
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+}
+h1 {
+  margin: 0.67em 0;
+  font-size: 2em;
+}
+
+.service-class a .service-boxs,
+.service-class a:focus .service-boxs {
+  position: relative;
+  -webkit-transition: all 0.2s cubic-bezier(0.53, 1, 0.53, 1.3);
+  transition: all 0.2s cubic-bezier(0.53, 1, 0.53, 1.3);
+}
+
+.service-class a .service-boxs img,
+.service-class a:focus .service-boxs img {
+  filter: grayscale(100%);
+  max-width: 100%;
+}
+
+.service-class a .service-boxs h3,
+.service-class a:focus .service-boxs h3 {
+  background: #fff;
+  color: #1e1c1c;
+  margin-top: -30px;
+  position: absolute;
+  z-index: 9;
+  -webkit-transition: all 0.2s cubic-bezier(0.53, 1, 0.53, 1.3);
+  transition: all 0.2s cubic-bezier(0.53, 1, 0.53, 1.3);
+}
+
+@media (min-width: 1200px) {
+  .service-class a .service-boxs h3,
+  .service-class a:focus .service-boxs h3 {
+    margin-left: calc(50% - 110px);
+    min-width: 220px;
+    padding: 16px 25px;
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1199px) {
+  .service-class a .service-boxs h3,
+  .service-class a:focus .service-boxs h3 {
+    margin-left: calc(50% - 100px);
+    min-width: 200px;
+    font-size: 22px;
+    padding: 16px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 992px) {
+  .service-class a .service-boxs h3,
+  .service-class a:focus .service-boxs h3 {
+    margin-left: calc(50% - 110px);
+    min-width: 220px;
+    padding: 16px 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .service-class a .service-boxs h3,
+  .service-class a:focus .service-boxs h3 {
+    margin-left: calc(50% - 75px);
+    min-width: 150px;
+    font-size: 18px;
+    padding: 8px 10px;
+    margin-top: -20px;
+  }
+}
+
+.service-class a .service-boxs h3 i,
+.service-class a:focus .service-boxs h3 i {
+  float: right;
+  -webkit-transition: all 0.2s cubic-bezier(0.53, 1, 0.53, 1.3);
+  transition: all 0.2s cubic-bezier(0.53, 1, 0.53, 1.3);
+}
+
+@media (min-width: 601px) {
+  .service-class a .service-boxs h3 i,
+  .service-class a:focus .service-boxs h3 i {
+    height: 26px;
+    width: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .service-class a .service-boxs h3 i,
+  .service-class a:focus .service-boxs h3 i {
+    height: 18px;
+    width: 24px;
+  }
+}
+
+.service-class a:hover img,
+.service-class a:focus:hover img {
+  filter: inherit;
+}
+
+.service-class a:hover h3,
+.service-class a:focus:hover h3 {
+  background: #ee3124;
+  color: #fff;
+}
+.welcome-img {
+  background-color: #1e1c1c;
+
+  @media (min-width: 933px) {
+    background-image: url("/images/truck.jpg");
+    background-repeat: no-repeat;
+  }
+  @media (max-width: 992px) {
+    float: left;
+    width: 100%;
+  }
+  @media (min-width: 993px) and (max-width: 1199px) {
+    height: 720px;
+    background-position: right top;
+    background-size: cover;
+  }
+  @media (min-width: 1200px) and (max-width: 1600px) {
+    height: 680px;
+    background-position: right top;
+    background-size: cover;
+  }
+  @media (min-width: 1601px) {
+    height: 578px;
+    background-position: left top;
+  }
+}
+.welcome-text {
+  padding-left: 100px;
+  padding-top: 50px;
+  @media (min-width: 1200px) {
+    margin-right: 100px;
+  }
+  @media (max-width: 1199px) {
+    margin-right: 50px;
+  }
+  @media (min-width: 993px) {
+    h2 {
+      margin-top: 100px;
+    }
+  }
+  @media (max-width: 992px) {
+    margin: 40px;
+    display: inline-block;
+  }
+  @media (max-width: 500px) {
+    margin: 20px;
+    display: inline-block;
+  }
 }
