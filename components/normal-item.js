@@ -1,5 +1,6 @@
 import { Col } from "antd";
 import styled from "styled-components";
+import Image from "next/image";
 
 export const Container = styled.div`
   padding-right: 15px;
@@ -57,7 +58,11 @@ export default function ServiceCol({ img, ...props }) {
     <Col span={12}>
       <a href="">
         <div className="service-boxs">
-          <img src={img} style={{ verticalAlign: "middle", border: 0 }}></img>
+          <Image
+            src={img}
+            alt="welcome"
+            style={{ verticalAlign: "middle", border: 0 }}
+          />
           {props.children}
         </div>
       </a>

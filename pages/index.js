@@ -7,6 +7,7 @@ import ServiceCol, {
   BannerH2,
   Container,
 } from "../components/normal-item";
+import Image from "next/image";
 
 const CarouselContent = styled.div`
   color: "#fff";
@@ -91,7 +92,7 @@ export default function Home() {
           <Row>
             <Col span={12}>
               <div className="welcome-img">
-                <img src="/images/truck.jpg" alt="welcome"></img>
+                <Image src="/images/truck.jpg" alt="welcome" />
               </div>
             </Col>
             <Col span={12}>
