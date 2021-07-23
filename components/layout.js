@@ -4,7 +4,7 @@ import { Layout, Menu } from "antd";
 import styled from "styled-components";
 import Link from "next/link";
 import { routes } from "../lib/routes";
-import { generateKey, getActiveKey } from "../lib/util/nav_util";
+import { generateKey, GetActiveKey } from "../lib/util/nav_util";
 import { PhoneOutlined } from "@ant-design/icons";
 const { Header, Content, Footer } = Layout;
 
@@ -46,7 +46,7 @@ function renderMenuItems(routes, parent = "") {
 
 export default function AppLayout(props) {
   const menuItems = renderMenuItems(routes);
-  const { activePath, activeKey } = getActiveKey(routes);
+  const { activePath, activeKey } = GetActiveKey(routes);
   const keys = activeKey.split("/");
 
   return (
