@@ -37,7 +37,7 @@ function renderMenuItems(routes, parent = "") {
     } else {
       return (
         <Menu.Item key={key} title={item.label}>
-          <Link href="">{item.label.toUpperCase()}</Link>
+          <Link href={`/${item.path}`}>{item.label.toUpperCase()}</Link>
         </Menu.Item>
       );
     }

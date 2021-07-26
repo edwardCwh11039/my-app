@@ -55,14 +55,19 @@ export const BannerH2 = styled.h2`
 
 export default function ServiceCol({ img, ...props }) {
   return (
-    <Col span={12}>
+    <Col
+      span={12}
+      style={{
+        position: "relative",
+        minHeight: "1px",
+        paddingRight: "15px",
+        paddingLeft: "15px",
+        float: "left",
+      }}
+    >
       <a href="">
         <div className="service-boxs">
-          <Image
-            src={img}
-            alt="welcome"
-            style={{ verticalAlign: "middle", border: 0 }}
-          />
+          <img src={img} alt="welcome" />
           {props.children}
         </div>
       </a>

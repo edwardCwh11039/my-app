@@ -8,6 +8,7 @@ import ServiceCol, {
   Container,
 } from "../components/normal-item";
 import Image from "next/image";
+import ContentBanner from "../components/contentBanner";
 
 const CarouselContent = styled.div`
   color: "#fff";
@@ -63,24 +64,21 @@ const WelcomeDiv = styled.div`
 export default function Home() {
   return (
     <AppLayout>
-      <HomeBanner style={{ backgroundImage: `url(/images/banner-home.jpg)` }}>
-        <Container style={{ maxWidth: "1810px", width: "100%" }}>
-          <div style={{ textAlign: "center" }}>
-            <BannerH1>welcome to ...company</BannerH1>
-            <BannerH2>we seleing truc</BannerH2>
-          </div>
-        </Container>
-      </HomeBanner>
+      <ContentBanner
+        imgSrc="url(/images/banner-home.jpg)"
+        h1="welcome to ...company"
+        h2="we selling truck"
+      />
       <Container style={{ maxWidth: "1810px", width: "100%" }}>
         <div className="service-class">
           <Row gutter={[16, 16]}>
-            <ServiceCol img="/images/truck.jpg">
+            <ServiceCol img="/images/truck2.jpeg">
               <h3>
                 Our Car
                 <i></i>
               </h3>
             </ServiceCol>
-            <ServiceCol img="/images/truck.jpg">
+            <ServiceCol img="/images/truck3.jpeg">
               <h3>
                 Contact Us
                 <i></i>
@@ -92,7 +90,7 @@ export default function Home() {
           <Row>
             <Col span={12}>
               <div className="welcome-img">
-                <Image src="/images/truck.jpg" alt="welcome" />
+                <img src="/images/truck.jpg" alt="welcome" layout="fill" />
               </div>
             </Col>
             <Col span={12}>
