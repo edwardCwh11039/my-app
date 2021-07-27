@@ -66,8 +66,10 @@ export default function ServiceCol({ img, ...props }) {
       }}
     >
       <a href="">
-        <div className="service-boxs">
-          <img src={img} alt="welcome" />
+        <div
+          className="service-boxs"
+        >
+          <Image src={img} alt="welcome" layout="fill" objectFit="fill" />
           {props.children}
         </div>
       </a>

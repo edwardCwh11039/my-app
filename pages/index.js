@@ -90,7 +90,7 @@ export default function Home() {
           <Row>
             <Col span={12}>
               <div className="welcome-img">
-                <img src="/images/truck.jpg" alt="welcome" layout="fill" />
+                <Image src="/images/truck.jpg" alt="welcome" layout="fill" />
               </div>
             </Col>
             <Col span={12}>

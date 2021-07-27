@@ -25,7 +25,7 @@ a {
 h1,
 h2,
 h3 {
-  font-family: 'Big Shoulders Text', cursive;
+  font-family: "Big Shoulders Text", cursive;
   text-transform: uppercase;
 }
 .h1,
@@ -145,6 +145,14 @@ h1 {
 .service-class a:focus:hover h3 {
   background: #ee3124;
   color: #fff;
+}
+.service-class div img {
+  height: max-content !important;
+  width: max-content !important;
+  position: relative !important;
+}
+.service-class div {
+  position: relative !important;
 }
 
 .welcome-img {
