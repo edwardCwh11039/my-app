@@ -53,7 +53,7 @@ export const BannerH2 = styled.h2`
   }
 `;
 
-export default function ServiceCol({ img, ...props }) {
+export default function ServiceCol({ img, link, ...props }) {
   return (
     <Col
       span={12}
@@ -65,10 +65,8 @@ export default function ServiceCol({ img, ...props }) {
         float: "left",
       }}
     >
-      <a href="">
-        <div
-          className="service-boxs"
-        >
+      <a href={link}>
+        <div className="service-boxs">
           <Image src={img} alt="welcome" layout="fill" objectFit="fill" />
           {props.children}
         </div>

@@ -72,13 +72,13 @@ export default function Home() {
       <Container style={{ maxWidth: "1810px", width: "100%" }}>
         <div className="service-class">
           <Row gutter={[16, 16]}>
-            <ServiceCol img="/images/truck2.jpeg">
+            <ServiceCol img="/images/truck2.jpeg" link="/cars">
               <h3>
                 Our Car
                 <i></i>
               </h3>
             </ServiceCol>
-            <ServiceCol img="/images/truck3.jpeg">
+            <ServiceCol img="/images/truck3.jpeg" link="/contact">
               <h3>
                 Contact Us
                 <i></i>
