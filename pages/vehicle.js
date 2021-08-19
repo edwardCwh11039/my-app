@@ -1,19 +1,11 @@
-/* eslint no-undef: 0 */
-/* eslint arrow-parens: 0 */
 import React from "react";
 import AppLayout from "../components/landing/Layout";
-import { Contact00DataSource, ContactBannerDataSource } from "../lib/data.source";
-import Contact0 from "../components/landing/Contact0";
+import Vehicle from "../components/landing/Vehicle";
+import { VehiclesBanner03DataSource } from "../lib/data.source";
 
 export default class Home extends React.Component {
   render() {
-    const children = [
-      <Contact0
-        id="Contact0_0"
-        key="Contact0_0"
-        dataSource={Contact00DataSource}
-      />,
-    ];
+    const children = [<Vehicle id="vehicle" key="vehicle" />];
     return (
       <div
         className="templates-wrapper"
@@ -22,7 +14,7 @@ export default class Home extends React.Component {
         }}
       >
         <AppLayout
-          BannerDataSource={ContactBannerDataSource}
+          BannerDataSource={VehiclesBanner03DataSource}
           imgSrc={"/images/banner-home.jpg"}
         >
           {children}
