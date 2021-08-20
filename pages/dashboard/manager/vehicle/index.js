@@ -48,6 +48,10 @@ export default function Page() {
           status={state}
           newData={newData}
           modify={true}
+          handleEdit={(item) => {
+            setEditingVehicle(item);
+            setIsModalVisible(true);
+          }}
         />
       </div>
       <BackTop target={() => document.getElementById("contentLayout")} />

@@ -2,7 +2,7 @@ import { Radio } from "antd";
 import { useState } from "react";
 
 export default function CustomRadio({ value = {}, onChange, data }) {
-  const [select, setSelect] = useState();
+  const [select, setSelect] = useState(value.data);
   const triggerChange = (changedValue) => {
     onChange?.({
       ...value,
@@ -16,7 +16,7 @@ export default function CustomRadio({ value = {}, onChange, data }) {
   };
 
   return (
-    <Radio.Group onChange={onRadioChange} value={select}>
+    <Radio.Group onChange={onRadioChange} value={value.data || select}>
       {data.map((item, index) => (
         <Radio.Button value={index + 1} key={item}>
           {item}

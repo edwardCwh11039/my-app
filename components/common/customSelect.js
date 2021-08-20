@@ -1,8 +1,6 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Divider, Input, Select } from "antd";
-import Form from "antd/lib/form/Form";
 import { useEffect, useState } from "react";
-const { Option } = Select;
 
 export default function CustomSelect({ value = {}, onChange, data }) {
   const [items, setItems] = useState([]);
@@ -23,14 +21,16 @@ export default function CustomSelect({ value = {}, onChange, data }) {
     setItems([...items, name]);
     setName("");
   };
-  useEffect(() => {
-    setItems(Array.from(new Set(data.map((item) => item.name))));
-  }, [data]);
+  useEffect(
+    () => setItems(Array.from(new Set(data.map((item) => item.name)))),
+    [data]
+  );
   return (
     <Select
       style={{ width: 240 }}
       placeholder="custom dropdown render"
       onChange={onSelectChange}
+      value={value.data || name}
       dropdownRender={(menu) => (
         <div>
           {menu}
@@ -57,7 +57,11 @@ export default function CustomSelect({ value = {}, onChange, data }) {
       )}
     >
       {items.map((item, index) => {
-        return <Select.Option key={item}>{item}</Select.Option>;
+        return (
+          <Select.Option key={index} value={item}>
+            {item}
+          </Select.Option>
+        );
       })}
     </Select>
   );

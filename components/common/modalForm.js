@@ -1,37 +1,14 @@
-import {
-  CloseCircleOutlined,
-  ConsoleSqlOutlined,
-  InboxOutlined,
-  KeyOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-import {
-  Button,
-  Col,
-  Divider,
-  Input,
-  InputNumber,
-  message,
-  Modal,
-  Row,
-  Select,
-  Spin,
-  Upload,
-} from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Modal, Upload } from "antd";
 import Form from "antd/lib/form";
-import { useForm } from "antd/lib/form/Form";
-import TextArea from "antd/lib/input/TextArea";
-import { UploadFile } from "antd/lib/upload/interface";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Condition, Transmission, validateMessages } from "../../lib/constant";
 import apiService from "../../lib/services/api-service";
-import { getBase64 } from "../../lib/util/image-helper";
 import CustomRadio from "./customRadio";
 import CustomSelect from "./customSelect";
-import { Lightbox } from "react-modal-image";
 import ImgCrop from "antd-img-crop";
-const { Option } = Select;
+import { getBase64 } from "../../lib/util/image-helper";
 
 const ModalFormSubmit = styled(Form.Item)`
   position: absolute;
@@ -39,14 +16,31 @@ const ModalFormSubmit = styled(Form.Item)`
   right: 8em;
   margin-bottom: 10px;
 `;
+
+const processImage = (imageList, vehicleImages, name) => {
+  const newImageList = imageList.filter((x) => !vehicleImages.includes(x.name));
+  const deleteImage = vehicleImages.filter(
+    (x) => !imageList.map((i) => i.name).includes(x)
+  );
+  const newImages = newImageList.map((img, index) => {
+    const ext = img.originFileObj.name.split(".").slice(1, 2).join("");
+    const newName = [name + index, ext].join(".");
+
+    return new File([img.originFileObj], newName, {
+      type: img.originFileObj.type,
+    });
+  });
+
+  return { newImages, deleteImage };
+};
 export default function ModalForm({ onFinish, vehicle }) {
-  const [form] = useForm();
+  const [form] = Form.useForm();
   const [isAdd, setIsAdd] = useState(vehicle === undefined || vehicle === null);
   const [imageList, setImageList] = useState([]);
-  const [category, setCategory] = useState([]);
-  const [subCategory, setSubCategory] = useState([]);
-  const [make, setMake] = useState([]);
-  const [model, setModel] = useState([]);
+  const [info, setInfo] = useState([]);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
   const handleBeforeUpload = (file) => {
     const isJPG = file.type === "image/jpeg";
     const isJPEG = file.type === "image/jpeg";
@@ -68,43 +62,44 @@ export default function ModalForm({ onFinish, vehicle }) {
     setImageList(newFileList);
   };
   const handleFinish = async (values) => {
-    const { image, ...others } = values;
+    const { image, condition, transmission, ...others } = values;
     const formData = new FormData();
-
-    for (const [key, value] of Object.entries(others)) {
-      others[key] = value.data;
-    }
-    const { condition, transmission, ...detail } = others;
     const name = _.startCase(
-      _.lowerCase(Object.values(detail).join("_"))
+      _.lowerCase(
+        Object.values(others)
+          .map((i) => i.data)
+          .join("_")
+      )
     ).replace(/\s+/g, "_");
-    const images = imageList.map((img, index) => {
-      const ext = img.originFileObj.name.split(".").slice(1, 2).join("");
-      const newName = [name + index, ext].join(".");
-
-      return new File([img.originFileObj], newName, {
-        type: img.originFileObj.type,
-      });
-    });
-    const newItem = {
+    const { newImages, deleteImage } = processImage(
+      imageList,
+      vehicle.images,
+      name
+    );
+    const req = {
+      id: vehicle.id,
       name: name,
-      category: detail.category,
-      subCategory: detail.subCategory,
-      make: detail.make,
-      model: detail.model,
-      conditionId: condition,
-      transmissionId: transmission,
+      category: others.category.data,
+      subCategory: others.subCategory.data,
+      make: others.make.data,
+      model: others.model.data,
+      conditionId: condition.data,
+      transmissionId: transmission.data,
     };
-    images.map((img) => {
+
+    newImages.map((img) => {
       formData.append("images", img);
     });
-    for (const [key, value] of Object.entries(newItem)) {
+    for (const [key, value] of Object.entries(req)) {
       formData.append(key, value);
     }
+    deleteImage.map((i) => formData.append("deletedImage", i));
     formData.append("images", []);
-
-    const response = apiService.addVehicle(formData);
+    const response = isAdd
+      ? apiService.addVehicle(formData)
+      : apiService.updateVehicle(formData);
     const { data } = await response;
+
     if (!!data && !vehicle) {
       setIsAdd(false);
     }
@@ -112,6 +107,18 @@ export default function ModalForm({ onFinish, vehicle }) {
     if (!!onFinish && !!data) {
       onFinish(data);
     }
+  };
+  const handleCancel = () => setPreviewVisible(false);
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+    );
+    setPreviewImage(file.url || file.preview);
+    setPreviewVisible(true);
   };
   const uploadButton = (
     <div>
@@ -123,23 +130,50 @@ export default function ModalForm({ onFinish, vehicle }) {
   useEffect(() => {
     apiService.getVehicleCategories().then((res) => {
       const { data } = res;
-
-      setCategory(data);
-      setSubCategory(data.map((item) => item.subCategories).flat());
-      setMake(data.map((item) => item.makes).flat());
-      setModel(
-        data
-          .map((item) => item.makes.map((value) => value.models).flat())
-          .flat()
-      );
+      const info = [
+        { label: "Category", name: "category", data: data },
+        {
+          label: "Sub Category",
+          name: "subCategory",
+          data: data.map((item) => item.subCategories).flat(),
+        },
+        {
+          label: "Make",
+          name: "make",
+          data: data.map((item) => item.makes).flat(),
+        },
+        {
+          label: "Model",
+          name: "model",
+          data: data
+            .map((item) => item.makes.map((value) => value.models).flat())
+            .flat(),
+        },
+      ];
+      setInfo(info);
     });
   }, []);
 
   useEffect(() => {
     if (!!vehicle) {
       console.log(vehicle);
+      const values = {
+        category: { data: vehicle.category.name },
+        subCategory: { data: vehicle.subCategory.name },
+        make: { data: vehicle.make.name },
+        model: { data: vehicle.model.name },
+        condition: { data: vehicle.condition.id },
+        transmission: { data: vehicle.transmission.id },
+      };
+      const imgs = vehicle.images.map((img) => {
+        return { name: img, url: "http://localhost:3001/files/" + img };
+      });
+
+      form.setFieldsValue(values);
+      setImageList(imgs);
     }
   }, [vehicle]);
+
   return (
     <>
       <Form
@@ -149,18 +183,12 @@ export default function ModalForm({ onFinish, vehicle }) {
         validateMessages={validateMessages}
         onFinish={handleFinish}
       >
-        <Form.Item name="category" label="Category">
-          <CustomSelect data={category} />
-        </Form.Item>
-        <Form.Item name="subCategory" label="Sub-Category">
-          <CustomSelect data={subCategory} />
-        </Form.Item>
-        <Form.Item name="make" label="Manufactory">
-          <CustomSelect data={make} />
-        </Form.Item>
-        <Form.Item name="model" label="Model">
-          <CustomSelect data={model} />
-        </Form.Item>
+        {info.map((item, index) => (
+          <Form.Item name={item.name} label={item.label} key={index}>
+            <CustomSelect data={item.data} />
+          </Form.Item>
+        ))}
+
         <Form.Item name="condition" label="Condition">
           <CustomRadio data={Condition} />
         </Form.Item>
@@ -168,7 +196,7 @@ export default function ModalForm({ onFinish, vehicle }) {
           <CustomRadio data={Transmission} />
         </Form.Item>
         <Form.Item label="Image" name="image">
-          <ImgCrop rotate aspect={16 / 9}>
+          <ImgCrop rotate aspect={16 / 9} quality={0.6}>
             <Upload
               name="upload"
               listType="picture-card"
@@ -176,6 +204,7 @@ export default function ModalForm({ onFinish, vehicle }) {
               fileList={imageList}
               accept={"image/*"}
               beforeUpload={handleBeforeUpload}
+              onPreview={handlePreview}
             >
               {imageList.length >= 10 ? null : uploadButton}
             </Upload>
@@ -183,13 +212,19 @@ export default function ModalForm({ onFinish, vehicle }) {
         </Form.Item>
 
         <ModalFormSubmit shouldUpdate={true}>
-          {() => (
-            <Button type="primary" htmlType="submit">
-              {!!isAdd ? "Add" : "Update"}
-            </Button>
-          )}
+          <Button type="primary" htmlType="submit">
+            {!!isAdd ? "Add" : "Update"}
+          </Button>
         </ModalFormSubmit>
       </Form>
+      <Modal
+        visible={previewVisible}
+        title={previewTitle}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <img alt="example" style={{ width: "100%" }} src={previewImage} />
+      </Modal>
     </>
   );
 }

@@ -33,7 +33,11 @@ export default function CarOverview(props) {
   const actions = props.modify
     ? [
         props.children,
-        <Button shape="circle" icon={<EditOutlined key="edit" />} />,
+        <Button
+          shape="circle"
+          icon={<EditOutlined key="edit" />}
+          onClick={() => props.handleEdit(props.id)}
+        />,
         <Button
           shape="circle"
           icon={

@@ -16,7 +16,7 @@ export default function Vehicle() {
           hi
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 18 }}>
-          <InfiniteScrollComponent status={[1]} modify={false} />
+          <InfiniteScrollComponent status={[true]} modify={false} />
         </Col>
       </Row>
     </div>

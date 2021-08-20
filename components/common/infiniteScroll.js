@@ -1,13 +1,17 @@
 import { ReadOutlined } from "@ant-design/icons";
-import { Radio, Spin, List, Button } from "antd";
-import Link from "next/link";
+import { Spin, List, Button } from "antd";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import apiService from "../../lib/services/api-service";
 import CarOverview from "../carOverview";
 import { useListEffect } from "../custom-hooks/list-effects";
 
-export default function InfiniteScrollComponent({ status, newData, modify }) {
+export default function InfiniteScrollComponent({
+  status,
+  newData,
+  modify,
+  handleEdit,
+}) {
   const [items, setItems] = useState([]);
   const { paginator, setPaginator, hasMore, data, setData } = useListEffect(
     apiService.getVehicle.bind(apiService),
@@ -23,9 +27,9 @@ export default function InfiniteScrollComponent({ status, newData, modify }) {
   useEffect(() => {
     if (!!newData) {
       if (newData.isEdit) {
-        const index = data.findIndex((item) => item.id === newData.vehicle.id);
+        const index = data.findIndex((item) => item.id === newData.data.id);
 
-        data[index] = newData.vehicle;
+        data[index] = newData.data;
         setData([...data]);
       }
     }
@@ -52,8 +56,8 @@ export default function InfiniteScrollComponent({ status, newData, modify }) {
           sm: 2,
           md: 3,
           lg: 4,
-          xl: 5,
-          xxl: 6,
+          xl: 4,
+          xxl: 5,
         }}
         dataSource={items}
         renderItem={(item) => (
@@ -67,6 +71,7 @@ export default function InfiniteScrollComponent({ status, newData, modify }) {
                 );
                 setData(newData);
               }}
+              handleEdit={() => handleEdit(item)}
             >
               <Button
                 shape="circle"
