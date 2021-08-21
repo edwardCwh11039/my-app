@@ -6,9 +6,9 @@ import storage from "./storage";
 
 const getBaseUrl = () => {
   if (process.env.NODE_ENV === "development") {
-    return process.env.NEXT_PUBLIC_API || "http://localhost:8080/api";
+    return process.env.NEXT_PUBLIC_API || "http://localhost:3001/api";
   } else {
-    return "https://cms-nextjs-antd.herokuapp.com/api";
+    return "https://cms.chtoma.com/api";
   }
 };
 const baseURL = getBaseUrl();
