@@ -9,7 +9,7 @@ import Link from "next/link";
 import { HeaderIcon } from "./style";
 import UserIcon from "./user-icon";
 import { routes } from "../../lib/constant/cms-routes";
-import { getMenuConfig, renderMenuItems } from "../../lib/util/cms-menu-util";
+import { RenderMenuItems } from "../../lib/util/cms-menu-util";
 
 const Logo = styled.div`
   height: 64px;
@@ -45,7 +45,7 @@ export default function AppLayout(props) {
   const [collapsed, toggleCollapse] = useState(false);
   const userRole = useUserRole();
   const sideNave = routes.get(userRole);
-  const menuItems = renderMenuItems(sideNave);
+  const menuItems = RenderMenuItems(sideNave);
   //   const { defaultOpenKeys, defaultSelectedKeys } = getMenuConfig(sideNave);
 
   return (

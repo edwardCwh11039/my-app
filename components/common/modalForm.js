@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Modal, Upload } from "antd";
+import { Button, Image, Modal, Upload } from "antd";
 import Form from "antd/lib/form";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -223,7 +223,12 @@ export default function ModalForm({ onFinish, vehicle }) {
         footer={null}
         onCancel={handleCancel}
       >
-        <img alt="example" style={{ width: "100%" }} src={previewImage} />
+        <Image
+          alt="example"
+          style={{ width: "100%" }}
+          src={previewImage}
+          preview={false}
+        />
       </Modal>
     </>
   );

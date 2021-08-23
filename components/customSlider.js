@@ -69,9 +69,10 @@ export default function CustomSlider({ images }) {
               >
                 {data.map((img, index) => (
                   <div className="slick-slide" key={index}>
-                    <img
+                    <Image
                       className="slick-slide-image"
                       src={`http://localhost:3001/files/${img}`}
+                      preview={false}
                     />
                   </div>
                 ))}

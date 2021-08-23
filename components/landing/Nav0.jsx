@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TweenOne from "rc-tween-one";
-import { Menu } from "antd";
+import { Image, Menu } from "antd";
 import { getChildrenToRender } from "../../lib/util/landing";
 
 const { Item, SubMenu } = Menu;
@@ -78,7 +78,12 @@ export default function Header(props) {
           {...dataSource.logo}
         >
           <a href={dataSource.logo.link}>
-            <img width="100%" src={dataSource.logo.children} alt="img" />
+            <Image
+              width="100%"
+              src={dataSource.logo.children}
+              alt="img"
+              preview={false}
+            />
           </a>
         </TweenOne>
         {isMobile && (

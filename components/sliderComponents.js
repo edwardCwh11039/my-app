@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { Image } from "antd";
 
 const settings = {
   dots: true,
@@ -33,7 +34,11 @@ export function SliderWrapper({ slidesData }) {
     <Slider {...settings}>
       {slidesData.map((slide) => (
         <div className="slick-slide" key={slide.id}>
-          <img className="slick-slide-image" src={`${slide.src}`} />
+          <Image
+            className="slick-slide-image"
+            src={`${slide.src}`}
+            preview={false}
+          />
         </div>
       ))}
     </Slider>
@@ -60,7 +65,11 @@ export function SliderWrapperWithThumbnailRef({ slidesData }) {
       >
         {slidesData.map((slide) => (
           <div className="slick-slide" key={slide.id}>
-            <img className="slick-slide-image" src={`${slide.src}`} />
+            <Image
+              className="slick-slide-image"
+              src={`${slide.src}`}
+              preview={false}
+            />
           </div>
         ))}
       </Slider>
@@ -72,7 +81,11 @@ export function SliderWrapperWithThumbnailRef({ slidesData }) {
         >
           {slidesData.map((slide) => (
             <div className="slick-slide" key={slide.id}>
-              <img className="slick-slide-image" src={`${slide.src}`} />
+              <Image
+                className="slick-slide-image"
+                src={`${slide.src}`}
+                preview={false}
+              />
             </div>
           ))}
         </Slider>

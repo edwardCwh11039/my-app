@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TweenOne from "rc-tween-one";
 import OverPack from "rc-scroll-anim/lib/ScrollOverPack";
 import QueueAnim from "rc-queue-anim";
-import { Row, Col } from "antd";
+import { Row, Col, Image } from "antd";
 import { getChildrenToRender } from "../../lib/util/landing";
 import { isImg } from "../../lib/util/landing";
 
@@ -17,7 +17,12 @@ export default function Footer(props) {
           <h2 {...title}>
             {typeof title.children === "string" &&
             title.children.match(isImg) ? (
-              <img src={title.children} width="100%" alt="img" />
+              <Image
+                src={title.children}
+                width="100%"
+                alt="img"
+                preview={false}
+              />
             ) : (
               title.children
             )}
@@ -34,7 +39,6 @@ export default function Footer(props) {
   return (
     <div {...otherProps} {...dataSource.wrapper}>
       <OverPack {...dataSource.OverPack}>
-
         <TweenOne
           animation={{ y: "+=30", opacity: 0, type: "from" }}
           key="copyright"
