@@ -1,4 +1,0 @@
-type Vehicle @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  name: String!
-}

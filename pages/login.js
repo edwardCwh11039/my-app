@@ -11,9 +11,13 @@ const LoginForm = () => {
   const [form] = Form.useForm();
   const router = useRouter();
   const login = async (loginRequest) => {
-    console.log(loginRequest);
-    const data = await apiService.register(loginRequest);
+    const { data } = await apiService.login(loginRequest);
     console.log(data);
+    if (!!data) {
+      console.log(data);
+      storage.setUserInfo(data);
+      // router.push("dashboard");
+    }
   };
 
   return (
@@ -39,7 +43,7 @@ const LoginForm = () => {
       <Form
         name="login-form"
         onFinish={(values) => {
-          login(values);
+          login({ role: Role.Manager, ...values });
         }}
         form={form}
         validateMessages={validateMessages}
@@ -51,22 +55,6 @@ const LoginForm = () => {
             {
               required: true,
               message: "Please input username",
-            },
-          ]}
-        >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Please input username"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="email"
-          rules={[
-            {
-              required: true,
-              type: "email",
-              message: "Please input email",
             },
           ]}
         >
@@ -97,9 +85,9 @@ const LoginForm = () => {
           />
         </Form.Item>
 
-        {/* <Form.Item name="remember" valuePropName="checked">
+        <Form.Item name="remember" valuePropName="checked">
           <Checkbox>Remember me</Checkbox>
-        </Form.Item> */}
+        </Form.Item>
 
         <Form.Item>
           <Button
