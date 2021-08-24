@@ -15,8 +15,9 @@ export default function Footer(props) {
       return (
         <Col key={i.toString()} {...itemProps} title={null} content={null}>
           <h2 {...title}>
+            {console.log(typeof title.children, title.children, isImg)}
             {typeof title.children === "string" &&
-            isImg.some((rx) => rx.test(title.children)) ? (
+            title.children.match(isImg) ? (
               <Image
                 src={title.children}
                 width="100%"
