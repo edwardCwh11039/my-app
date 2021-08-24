@@ -12,7 +12,7 @@ const LoginForm = () => {
   const router = useRouter();
   const login = async (loginRequest) => {
     console.log(loginRequest);
-    const data = await apiService.register(loginRequest);
+    const data = await apiService.login(loginRequest);
     console.log(data);
   };
 
@@ -51,22 +51,6 @@ const LoginForm = () => {
             {
               required: true,
               message: "Please input username",
-            },
-          ]}
-        >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Please input username"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="email"
-          rules={[
-            {
-              required: true,
-              type: "email",
-              message: "Please input email",
             },
           ]}
         >

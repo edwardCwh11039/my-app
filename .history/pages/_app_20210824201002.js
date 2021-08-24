@@ -1,7 +1,7 @@
 require("../styles/globals.less");
 require("../styles/less/antMotionStyle.less");
 import Amplify, { Auth } from "aws-amplify";
-import awsconfig from "../lib/config/aws-exports";
+import awsconfig from "./aws-exports.js";
 import Head from "next/head";
 
 Amplify.configure(awsconfig);

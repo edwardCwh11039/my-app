@@ -30,20 +30,10 @@ class ApiService {
   }
 
   async register(req) {
-    const result = "";
-    try {
-      const { user } = await Auth.signUp({
-        username: req.username,
-        password: req.password,
-      });
-      result += user;
-      console.log(user);
-    } catch (error) {
-      result += error;
-
-      console.log("error signing up:", error);
-    }
-    return result;
+    return await Auth.signUp({
+      username: req.username,
+      password: req.password,
+    });
   }
 
   async login(req) {

@@ -2,18 +2,21 @@ import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
+import apiService from "../lib/services/api-service";
 import storage from "../lib/services/storage";
 import { validateMessages } from "../lib/constant/config";
 import { Role } from "../lib/constant/role";
-import apiService from "../lib/services/api-amplify";
 
 const LoginForm = () => {
   const [form] = Form.useForm();
   const router = useRouter();
   const login = async (loginRequest) => {
-    console.log(loginRequest);
-    const data = await apiService.register(loginRequest);
-    console.log(data);
+    const { data } = await apiService.login(loginRequest);
+
+    if (!!data) {
+      storage.setUserInfo(data);
+      router.push("dashboard");
+    }
   };
 
   return (
@@ -39,40 +42,28 @@ const LoginForm = () => {
       <Form
         name="login-form"
         onFinish={(values) => {
-          login(values);
+          login({ role: Role.Manager, ...values });
         }}
         form={form}
         validateMessages={validateMessages}
         style={{ width: "35%" }}
       >
         <Form.Item
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: "Please input username",
-            },
-          ]}
-        >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Please input username"
-          />
-        </Form.Item>
-
-        <Form.Item
           name="email"
           rules={[
             {
               required: true,
-              type: "email",
               message: "Please input email",
+            },
+            {
+              type: "email",
+              message: "The input is not valid E-mail!",
             },
           ]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Please input username"
+            placeholder="Please input email"
           />
         </Form.Item>
 
@@ -97,9 +88,9 @@ const LoginForm = () => {
           />
         </Form.Item>
 
-        {/* <Form.Item name="remember" valuePropName="checked">
+        <Form.Item name="remember" valuePropName="checked">
           <Checkbox>Remember me</Checkbox>
-        </Form.Item> */}
+        </Form.Item>
 
         <Form.Item>
           <Button

@@ -6,46 +6,7 @@
       "service": "Lambda"
     }
   },
-  "auth": {
-    "myappaeb156bd": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false,
-      "frontendAuthConfig": {
-        "loginMechanism": [
-          "PREFERRED_USERNAME"
-        ],
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ]
-      }
-    },
-    "userPoolGroups": {
-      "service": "Cognito-UserPool-Groups",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "myappaeb156bd",
-          "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID",
-            "IdentityPoolId"
-          ]
-        }
-      ]
-    }
-  },
+  "auth": {},
   "api": {
     "myapp": {
       "service": "AppSync",
@@ -87,5 +48,6 @@
       "service": "amplifyhosting",
       "type": "cicd"
     }
-  }
+  },
+  "storage": {}
 }

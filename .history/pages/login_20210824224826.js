@@ -11,8 +11,7 @@ const LoginForm = () => {
   const [form] = Form.useForm();
   const router = useRouter();
   const login = async (loginRequest) => {
-    console.log(loginRequest);
-    const data = await apiService.register(loginRequest);
+    const data = await apiService.login(loginRequest);
     console.log(data);
   };
 
@@ -39,40 +38,28 @@ const LoginForm = () => {
       <Form
         name="login-form"
         onFinish={(values) => {
-          login(values);
+          login({ role: Role.Manager, ...values });
         }}
         form={form}
         validateMessages={validateMessages}
         style={{ width: "35%" }}
       >
         <Form.Item
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: "Please input username",
-            },
-          ]}
-        >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Please input username"
-          />
-        </Form.Item>
-
-        <Form.Item
           name="email"
           rules={[
             {
               required: true,
-              type: "email",
               message: "Please input email",
+            },
+            {
+              type: "email",
+              message: "The input is not valid E-mail!",
             },
           ]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Please input username"
+            placeholder="Please input email"
           />
         </Form.Item>
 
@@ -97,9 +84,9 @@ const LoginForm = () => {
           />
         </Form.Item>
 
-        {/* <Form.Item name="remember" valuePropName="checked">
+        <Form.Item name="remember" valuePropName="checked">
           <Checkbox>Remember me</Checkbox>
-        </Form.Item> */}
+        </Form.Item>
 
         <Form.Item>
           <Button

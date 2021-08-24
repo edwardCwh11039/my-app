@@ -23,9 +23,6 @@
           "deploymentBucketName": "amplify-myapp-dev-152150-deployment",
           "s3Key": "amplify-builds/cmsAmplifyFunction-44514d4d35505056467a-build.zip"
         }
-      },
-      "auth": {
-        "myappaeb156bd": {}
       }
     }
   }
