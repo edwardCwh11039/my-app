@@ -39,6 +39,7 @@ export default function Footer(props) {
   return (
     <div {...otherProps} {...dataSource.wrapper}>
       <OverPack {...dataSource.OverPack}>
+        {" "}
         <QueueAnim
           type="bottom"
           key="ul"

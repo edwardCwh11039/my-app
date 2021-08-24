@@ -39,15 +39,6 @@ export default function Footer(props) {
   return (
     <div {...otherProps} {...dataSource.wrapper}>
       <OverPack {...dataSource.OverPack}>
-        <QueueAnim
-          type="bottom"
-          key="ul"
-          leaveReverse
-          component={Row}
-          {...dataSource.block}
-        >
-          {childrenToRender}
-        </QueueAnim>
         <TweenOne
           animation={{ y: "+=30", opacity: 0, type: "from" }}
           key="copyright"
