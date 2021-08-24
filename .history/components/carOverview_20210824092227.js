@@ -3,6 +3,8 @@ import { EditOutlined, DeleteOutlined, RedoOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { gutter } from "../lib/constant";
 import apiService from "../lib/services/api-service";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const StyledRow = styled(Row)`
   position: relative;
