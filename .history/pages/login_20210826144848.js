@@ -6,18 +6,12 @@ import storage from "../lib/services/storage";
 import { validateMessages } from "../lib/constant/config";
 import { Role } from "../lib/constant/role";
 import Link from "next/link";
-import apiService from "../lib/services/api-service";
 
 const LoginForm = () => {
   const [form] = Form.useForm();
   const router = useRouter();
   const login = async (loginRequest) => {
-    const { data } = await apiService.login(loginRequest);
-
-    if (!!data) {
-      storage.setUserInfo(data);
-      router.push("dashboard");
-    }
+    console.log(loginRequest);
   };
 
   return (
