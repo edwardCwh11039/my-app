@@ -1,7 +1,6 @@
 /* eslint no-undef: 0 */
 /* eslint arrow-parens: 0 */
-import React, { useEffect, useState } from "react";
-import { DataStore } from "aws-amplify";
+import React from "react";
 import Feature1 from "../components/landing/Feature1";
 import Feature2 from "../components/landing/Feature2";
 import Feature7 from "../components/landing/Feature7";
@@ -12,10 +11,8 @@ import {
   Feature70DataSource,
 } from "../lib/data.source";
 import AppLayout from "../components/landing/Layout";
-import apiService from "../lib/services/api-amplify";
 
 export default function Home() {
-  const [test, setTest] = useState([]);
   const children = [
     <Feature1
       id="Feature1_0"
@@ -33,10 +30,6 @@ export default function Home() {
       dataSource={Feature70DataSource}
     />,
   ];
-
-  useEffect(() => {
-    apiService.getVehicle().then((res) => console.log(res));
-  }, []);
 
   return (
     <div className="templates-wrapper">

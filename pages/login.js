@@ -5,19 +5,13 @@ import { useRouter } from "next/router";
 import storage from "../lib/services/storage";
 import { validateMessages } from "../lib/constant/config";
 import { Role } from "../lib/constant/role";
-import apiService from "../lib/services/api-amplify";
+import Link from "next/link";
 
 const LoginForm = () => {
   const [form] = Form.useForm();
   const router = useRouter();
   const login = async (loginRequest) => {
-    const { data } = await apiService.login(loginRequest);
-    console.log(data);
-    if (!!data) {
-      console.log(data);
-      storage.setUserInfo(data);
-      // router.push("dashboard");
-    }
+    console.log(loginRequest);
   };
 
   return (
@@ -100,7 +94,7 @@ const LoginForm = () => {
           </Button>
           <div>
             <span> No account? </span>
-            <a>Sign up</a>
+            <Link href="/register">Sign up</Link>
           </div>
         </Form.Item>
       </Form>

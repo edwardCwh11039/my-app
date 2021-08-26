@@ -1,6 +1,5 @@
 require("../styles/globals.less");
 require("../styles/less/antMotionStyle.less");
-import Amplify, { Auth } from "aws-amplify";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {

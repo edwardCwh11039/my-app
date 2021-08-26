@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
+    "@aws-amplify/ui-react": "^1.2.10",
     "antd": "^4.16.12",
     "antd-img-crop": "^3.14.3",
+    "aws-amplify": "^4.2.4",
     "axios": "^0.21.1",
     "crypto-js": "^4.1.1",
     "customize-cra": "^1.0.0",
